@@ -1,0 +1,26 @@
+https://arxiv.org/pdf/1905.08711.pdf
+
+Problem: Human Action Recognition
+
+Highlights:
+
+	1) Lightweight CNN model 
+	2) Uses RGB mono camera and general purpose CPU
+	3) Improves accuracy by distilling from multiple models with different modalities into single model
+
+Why: 
+To perform Human action recognition, we need to consider the temporal structure of input data across multiple frames to remove action ambiguities. This is computationally costly. With the advent of edge computing devices, where low power consumption is important, we need a solution that can achieve high accuracy and yet be fast enough for real time applications.
+
+What:
+New architecture - Video transformer Network for real time action recognition.
+Combines methods from NLP(self-attention) with CNN to get better accuracy.
+It embeds each input frame to lower dimensional high level feature vector and then makes a conclusion about the action operating only on embedding vectors by means of self attention
+
+
+Video Transformer Network:
+
+Consists of 2 parts: Encoder + Decoder
+
+Encoder processes each frame of input using a 2d CNN and gives frame embeddings. ResNet is used as base architecture for encoder 
+
+Decoder integrates intra frame temporal information using a fully attentional feed -forward network producing classification for the given clip. Transforms frame embedding by applying multi head self-attention and convolutional blocks iteratively
