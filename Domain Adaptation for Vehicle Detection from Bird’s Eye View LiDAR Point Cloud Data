@@ -1,0 +1,24 @@
+https://arxiv.org/pdf/1905.08955.pdf
+
+Problem: Vehicle detection from synthetic LiDAR point cloud data
+
+
+Why:
+Recent development in the deep learning based techniques(like CNNs) for object detection and computer vision tasks require labelled datasets. This paved way for synthetic datasets, where it's easier to annotate the data and it can be automated. But, the problem with this is that it loses generalization to real data. The synthetic data is too perfect, and misses out important artefacts from the real world like motion distortion or variability of LiDAR beams etc.Since there is a domain shift, models trained on synthetic data do not perform so well in real scenarios.So, bridging the gap between synthetic and real data is important, so as to leverage the automation that can be used to generate synthetic data, as labelling point cloud data is complicated.
+
+
+What:
+This paper is proposing a new Domain Adaptation framework that uses CycleGAN to bridge the gap between synthetic and real point cloud data.
+
+A CycleGAN model is trained to transform synthetic BEV(Bird's Eye View) point cloud data to real point cloud data  and vice versa.
+
+This mapping is achieved using two generators G{S→R} and G{R→S}  and two discriminators Ds and DR.
+
+
+G{S→R} tries to map source synthetic data to target real data. G{R→S}  tries to map the generated point cloud data from real back to its original source domain. 
+
+Ds is trying to differentiate between source synthetic data and generated data from G{R→S}
+DR is trying to differentiate between real data and generated data from G{S→R}
+
+The framework has 2 internal cycles - Cycle_s and cycle_r.
+In  Cycle_s, the input from synthetic data goes through G{S→R} and the output is then passed through DR. The output of generator is also passed through G{R→S} to get reconstructed original input sample. The same procedure is followed for Cycle_R. input sample from real data goes through G{R→S} and then through Ds. Output of G{R→S} is passed through G{S→R} for reconstructed real data
